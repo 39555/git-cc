@@ -58,7 +58,7 @@ func doCommit(message string, dryRun bool, commitParams []string) {
 		log.Fatalf("unable to write to %s: %+v", f, err)
 	}
 	if dryRun {
-		fmt.Println(message)
+		fmt.Fprintln(os.Stderr, message)
 	}
 	cmd := append([]string{"git", "commit", "--message", message}, commitParams...)
 	process := exec.Command(cmd[0], cmd[1:]...)
@@ -66,7 +66,7 @@ func doCommit(message string, dryRun bool, commitParams []string) {
 	process.Stdout = os.Stdout
 	process.Stderr = os.Stderr
 	if dryRun {
-		fmt.Printf("would run: `%s`\n", strings.Join(cmd, " "))
+		fmt.Fprintf(os.Stderr, "would run: `%s`\n", strings.Join(cmd, " "))
 		os.Exit(0)
 	} else {
 		err = process.Run()
