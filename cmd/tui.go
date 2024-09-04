@@ -227,7 +227,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				} else {
 					m = m.submit().advance()
 				}
-			case breakingChangeIndex:
+			case shortDescriptionIndex:
 				m = m.submit()
 				if m.ready() {
 					m.choice <- m.value()
